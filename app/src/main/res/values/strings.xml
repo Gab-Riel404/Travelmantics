@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Travelmantics</string>
+    <string name="title_hint">Deal Title</string>
+    <string name="price_hint">Price (Numbers only)</string>
+    <string name="description_hint">Description</string>
+    <string name="save_menu">save</string>
+    <string name="delete_menu">Delete deal</string>
+    <string name="image_name">image_name</string>
+    <string name="currency">GH¢ </string>
+    <string name="logout">Logout</string>
+    <string name="new_travel_deal">New Travel Deal</string>
+    <string name="upload_image">Upload Image</string>
+</resources>

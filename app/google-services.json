@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "61421135444",
+    "firebase_url": "https://travelmantics-e28d8.firebaseio.com",
+    "project_id": "travelmantics-e28d8",
+    "storage_bucket": "travelmantics-e28d8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61421135444:android:80406ef0ced64aa4",
+        "android_client_info": {
+          "package_name": "com.deleir.travelmantics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "61421135444-cf6mln9onsvp2uchigjv2j7huno7s7vv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.deleir.travelmantics",
+            "certificate_hash": "c7aadf99a9e3066661b5468e4cf02936a453830f"
+          }
+        },
+        {
+          "client_id": "61421135444-hk98hb1d0i0jnsom04vojp4b7trds2m8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.deleir.travelmantics",
+            "certificate_hash": "2d4929534fcea52d1643eda670b839b1faaaf43a"
+          }
+        },
+        {
+          "client_id": "61421135444-d107snhp1rph711lp564jpa430kut40q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXMlc-cEJDShmK-t3S5t6s5f1I70UuM48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "61421135444-d107snhp1rph711lp564jpa430kut40q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
