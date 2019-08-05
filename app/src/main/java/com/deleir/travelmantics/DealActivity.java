@@ -1,7 +1,6 @@
 package com.deleir.travelmantics;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,11 +23,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-import java.net.URI;
 import java.util.Objects;
 
 public class DealActivity extends AppCompatActivity {
@@ -37,8 +37,10 @@ public class DealActivity extends AppCompatActivity {
     private EditText txtTitle;
     private EditText txtDescription;
     private EditText txtPrice;
+    private Button btnImage;
     TravelDeal deal;
     ImageView imageView;
+    ProgressBar progressBar;
 
 
     @Override
@@ -46,7 +48,6 @@ public class DealActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deal);
 
-        //FirebaseUtil.openFbReference("traveldeals", this);
         mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
         mDatabaseReference = FirebaseUtil.mDatabaseReference;
 
@@ -54,6 +55,9 @@ public class DealActivity extends AppCompatActivity {
         txtDescription = findViewById(R.id.txtDescription);
         txtPrice = findViewById(R.id.txtPrice);
         imageView = findViewById(R.id.image);
+
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         Intent intent = getIntent();
         TravelDeal deal = (TravelDeal) intent.getSerializableExtra("Deal");
@@ -65,7 +69,7 @@ public class DealActivity extends AppCompatActivity {
         txtTitle.setText(deal.getTitle());
         txtDescription.setText(deal.getDescription());
         txtPrice.setText(deal.getPrice());
-        Button btnImage = findViewById(R.id.btnImage);
+        btnImage = findViewById(R.id.btnImage);
         btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,7 +78,9 @@ public class DealActivity extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
                 startActivityForResult(intent.createChooser(intent,
                         "Insert Picture"), PICTURE_RESULT);
+                progressBar.setVisibility(View.VISIBLE);
             }
+
         });
     }
 
@@ -148,6 +154,12 @@ public class DealActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.save_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
         if (FirebaseUtil.isAdmin) {
             menu.findItem(R.id.save_menu).setVisible(true);
             menu.findItem(R.id.delete_menu).setVisible(true);
@@ -157,7 +169,6 @@ public class DealActivity extends AppCompatActivity {
             menu.findItem(R.id.delete_menu).setVisible(false);
             enableEditText(false);
         }
-
         return true;
     }
 
@@ -184,14 +195,13 @@ public class DealActivity extends AppCompatActivity {
                             Log.d("Url: ", url);
                             Log.d("Name", pictureName);
                             showImage(url);
+                            progressBar.setVisibility(View.INVISIBLE);
+
                         }
                     });
-
-
                 }
             });
         }
-
     }
 
 
@@ -199,6 +209,7 @@ public class DealActivity extends AppCompatActivity {
         txtTitle.setEnabled(isEnabled);
         txtDescription.setEnabled(isEnabled);
         txtPrice.setEnabled(isEnabled);
+        btnImage.setVisibility(View.VISIBLE);
     }
 
     private void showImage(String url) {
@@ -206,7 +217,7 @@ public class DealActivity extends AppCompatActivity {
             int width = Resources.getSystem().getDisplayMetrics().widthPixels;
             Picasso.get()
                     .load(url)
-                    .resize(width, width*2/3)
+                    .resize(width, width * 2 / 3)
                     .centerCrop()
                     .into(imageView);
         }
